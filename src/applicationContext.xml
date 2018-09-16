@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 数据库连接配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
+		</property>
+		<property name="url"
+			value="jdbc:sqlserver://localhost:1433;databasename=technology">
+		</property>
+		<property name="username" value="JXP"></property>
+		<property name="password" value="123"></property>
+	</bean>
+	<!-- session工厂的配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- 使用annotatedClasses，实体与数据库之间的映射,在实体类加入注解，value中填写类名； 使用mappingResources，需要加映射配置文件：XXX.hbm.xml，value中填写配置文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>model/Admin.hbm.xml</value>
+				<value>model/City.hbm.xml</value>
+				<value>model/Code.hbm.xml</value>
+				<value>model/FirstH.hbm.xml</value>
+				<value>model/FirstX.hbm.xml</value>
+				<value>model/Province.hbm.xml</value>
+				<value>model/SecondH.hbm.xml</value>
+				<value>model/SecondX.hbm.xml</value>
+				<value>model/T_DCWJXX.hbm.xml</value>
+				<value>model/ThirdH.hbm.xml</value>
+				<value>model/ThirdX.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="myAdminDao" class="dao.AdminDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myCityDao" class="dao.CityDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myCodeDao" class="dao.CodeDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myFirstHDao" class="dao.FirstHDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myFirstXDao" class="dao.FirstXDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myProvinceDao" class="dao.ProvinceDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="mySecondHDao" class="dao.SecondHDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="mySecondXDao" class="dao.SecondXDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myDemandDao" class="dao.DemandDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myThirdHDao" class="dao.ThirdHDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="myThirdXDao" class="dao.ThirdXDao">
+		<property name="sessionFactory">
+		    <ref bean="sessionFactory"/>
+		</property>
+	</bean>
+</beans>

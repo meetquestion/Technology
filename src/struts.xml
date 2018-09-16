@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!-- Add packages here -->
+    <bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest"
+    name="myRequestParser" class="parse.RequestParseWrapper"
+    scope="default" optional="true"/>
+    <constant name="struts.multipart.parser" value="myRequestParser"/>
+    <constant name="struts.devMode" value="true"/>
+    <package name="servlet" namespace="" extends="struts-default">
+        <action name="AdminServlet" class="action.AdminAction"></action>
+      <!--   <action name="checkCode" class="action.CheckCodeAction" method="ww"></action> -->
+        <action name="CityServlet" class="action.CityAction"></action>
+        <action name="DemandServlet" class="action.DemandAction"></action>
+        <action name="XQServlet" class="action.XQAction"></action>
+    </package>
+</struts>
